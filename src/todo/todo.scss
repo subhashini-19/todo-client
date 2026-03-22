@@ -1,0 +1,23 @@
+.todo-container {
+  max-width: 400px;
+  margin: auto;
+  padding: 16px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+button {
+  margin-left: 5px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}

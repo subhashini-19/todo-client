@@ -1,0 +1,89 @@
+<div class="todo-wrapper">
+  <!-- Header -->
+  <div class="todo-header">
+    <h1>📝 My Todo List</h1>
+  </div>
+
+  <!-- Error Message -->
+  @if (error()) {
+    <div class="error-message">
+      ⚠️ {{ error() }}
+    </div>
+  }
+
+  <!-- Add Todo Section -->
+  <div class="add-todo-section">
+    <div class="input-group">
+      <input
+        [ngModel]="newTodo()"
+        (ngModelChange)="newTodo.set($event)"
+        (keyup.enter)="addTodo()"
+        [disabled]="loading()"
+        type="text"
+        placeholder="Add a new task..."
+        class="todo-input"
+      />
+      <button
+        (click)="addTodo()"
+        [disabled]="loading() || !newTodo().trim()"
+        class="add-button"
+      >
+        {{ loading() ? '⏳ Adding...' : '➕ Add' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Stats Section -->
+  @if (todos().length > 0) {
+    <div class="stats-section">
+      <span class="stat">📊 Total: {{ todos().length }}</span>
+      <span class="stat">✅ Completed: {{ completedCount() }}</span>
+      <span class="stat">⏳ Pending: {{ todos().length - completedCount() }}</span>
+    </div>
+  }
+
+  <!-- Todo List Section -->
+  <div class="todo-list-section">
+    @if (loading() && todos().length === 0) {
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading todos...</p>
+      </div>
+    }
+
+    @if (todos().length === 0 && !loading()) {
+      <div class="empty-state">
+        <div class="empty-icon">🎯</div>
+        <p>No todos yet!</p>
+        <p class="empty-subtitle">Add one to get started</p>
+      </div>
+    }
+
+    @if (todos().length > 0) {
+      <ul class="todo-list">
+        @for (todo of todos(); track todo.id) {
+          <li class="todo-item" [class.completed]="todo.completed">
+            <div class="todo-content">
+              <input
+                type="checkbox"
+                [checked]="todo.completed"
+                (change)="toggle(todo)"
+                [disabled]="loading()"
+                class="todo-checkbox"
+              />
+              <span class="todo-title">{{ todo.title }}</span>
+            </div>
+            <button
+              (click)="delete(todo.id)"
+              [disabled]="loading()"
+              class="delete-button"
+              title="Delete this todo"
+            >
+              🗑️
+            </button>
+          </li>
+        }
+      </ul>
+    }
+  </div>
+</div>

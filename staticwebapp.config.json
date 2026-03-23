@@ -12,18 +12,28 @@
         "401": {
             
             "statusCode": 302,
-            "redirect": "/.auth/login/aad"
+            "redirect": "/.auth/login/extid"
         }
     },
     "auth": {
-        "identityProviders": {
-            "azureActiveDirectory": {
-                "registration": {
-                    "openIdIssuer": "https://TodoAppUsers.ciamlogin.com/bc4899c5-a308-4874-b570-d33b01a4d30d/v2.0",
-                    "clientIdSettingName": "AZURE_CLIENT_ID",
-                    "clientSecretSettingName": "AZURE_CLIENT_SECRET"
-                }
+    "identityProviders": {
+      "customOpenIdConnectProviders": {
+        "extid": {
+          "registration": {
+            "clientIdSettingName": "AZURE_CLIENT_ID",
+            "clientCredential": {
+              "clientSecretSettingName": "AZURE_CLIENT_SECRET"
+            },
+            "openIdConnectConfiguration": {
+              "wellKnownOpenIdConfiguration": "https://TodoAppUsers.ciamlogin.com/bc4899c5-a308-4874-b570-d33b01a4d30d/v2.0/.well-known/openid-configuration"
             }
+          },
+          "login": {
+            "nameClaimType": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name",
+            "scopes": ["openid", "profile", "email"]
+          }
         }
+      }
     }
+  }
 }

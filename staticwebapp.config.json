@@ -4,21 +4,11 @@
   },
   "auth": {
     "identityProviders": {
-      "customOpenIdConnectProviders": {
-        "aad": {
-          "registration": {
-            "clientIdSettingName": "AZURE_CLIENT_ID",
-            "clientCredential": {
-              "clientSecretSettingName": "AZURE_CLIENT_SECRET"
-            },
-            "openIdConnectConfiguration": {
-              "wellKnownOpenIdConfiguration": "https://TodoAppUsers.ciamlogin.com/bc4899c5-a308-4874-b570-d33b01a4d30d/v2.0/.well-known/openid-configuration"
-            }
-          },
-          "login": {
-            "nameClaimType": "name",
-            "scopes": ["openid", "profile", "email"]
-          }
+      "azureActiveDirectory": {
+        "registration": {
+          "openIdIssuer": "https://TodoAppUsers.ciamlogin.com/bc4899c5-a308-4874-b570-d33b01a4d30d/V2.0",
+          "clientIdSettingName": "AZURE_CLIENT_ID",
+          "clientSecretSettingName": "AZURE_CLIENT_SECRET"
         }
       }
     }

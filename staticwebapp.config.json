@@ -1,21 +1,8 @@
 {
-    "navigationFallback": {
-        "rewrite": "/index.html"
-    },
-    "routes" :[
-        {
-            "route": "/todo",
-            "allowedRoles": ["authenticated"]
-        }
-    ],
-    "responseOverrides": {
-        "401": {
-            
-            "statusCode": 302,
-            "redirect": "/.auth/login/extid"
-        }
-    },
-    "auth": {
+  "navigationFallback": {
+    "rewrite": "/index.html"
+  },
+  "auth": {
     "identityProviders": {
       "customOpenIdConnectProviders": {
         "extid": {
@@ -29,11 +16,23 @@
             }
           },
           "login": {
-            "nameClaimType": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name",
+            "nameClaimType": "name",
             "scopes": ["openid", "profile", "email"]
           }
         }
       }
+    }
+  },
+  "routes": [
+    {
+      "route": "/todo",
+      "allowedRoles": ["authenticated"]
+    }
+  ],
+  "responseOverrides": {
+    "401": {
+      "redirect": "/.auth/login/extid",
+      "statusCode": 302
     }
   }
 }
